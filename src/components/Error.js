@@ -1,9 +1,9 @@
 import React from 'react';
 
 const NotFound = () => (
-  <div className="container">
-    <div className="row">
-      <h1>Error 404</h1>
+  <div className="container error-container">
+    <div className="row text-white text-center">
+      <h1>Not found poll</h1>
     </div>
   </div>
 );

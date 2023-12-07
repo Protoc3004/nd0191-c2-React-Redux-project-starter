@@ -289,6 +289,6 @@ input:focus {
   background-color: white;
 }
 
-.login-container {
+.login-container, .error-container {
   height: 100vh;
 }

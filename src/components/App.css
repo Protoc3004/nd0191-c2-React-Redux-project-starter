@@ -1,0 +1,16 @@
+.navbar-avatar {
+    border-radius: 100%;
+    width: 3rem; 
+    height: 3rem;
+}
+
+.nav-link.active {
+    color: #FFD700;
+    font-size: large;
+}
+
+.card-header-avt {
+    border-radius: 100%;
+    width: 2.5rem; 
+    height: 2.5rem;
+}

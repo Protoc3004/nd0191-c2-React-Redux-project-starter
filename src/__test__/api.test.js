@@ -1,4 +1,4 @@
-import { getInitialData, saveQuestion, saveQuestionAnswer } from "./api";
+import { getInitialData, saveQuestion, saveQuestionAnswer } from "../services/utils/service";
 
 describe("saveQuestion", () => {
   it("save question", async () => {

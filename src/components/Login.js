@@ -37,12 +37,17 @@ class Login extends Component {
 						<div className="card-body">
 							<form>
 								<div className="form-group">
-									<select name="user" className="custom-select" onChange={(e) => this.selectUser(e)}>
-										<option value="">Select a user</option>
-										{Object.keys(users).map(user => (
-											<option value={user} key={user}>{users[user].name}</option>
-										))}
-									</select>
+									<label htmlFor="user">Select a user</label>
+
+									{users ? (
+										<select name="user" className="custom-select" onChange={(e) => this.selectUser(e)}>
+											{Object.keys(users).map(user => (
+												<option value={user} key={user}>{users[user].name}</option>
+											))}
+										</select>
+									) : (
+										<p>Loading users...</p>
+									)}
 								</div>
 								<button className="btn login_btn w-100" onClick={(e) => this.login(e)} disabled={user === ''}>Login</button>
 							</form>

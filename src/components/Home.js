@@ -52,20 +52,34 @@ class Home extends Component {
 }
 
 function mapStateToProps({ questions, authedUser, users }) {
-	const voted = Object.keys(users[authedUser].answers).sort((a, b) => questions[b].timestamp - questions[a].timestamp);
-	const unvoted = Object.keys(questions)
-		.filter(question => !voted.includes(question))
-		.sort((a, b) => questions[b].timestamp - questions[a].timestamp);
-	const myVotes = Object.keys(questions).filter(question => questions[question].author === authedUser)
-		.sort((a, b) => questions[b].timestamp - questions[a].timestamp);
+
+	const voted = users?.[authedUser]?.answers
+		? Object.keys(users[authedUser].answers).sort((a, b) => questions[b].timestamp - questions[a].timestamp)
+		: [];
+	const unvoted = authedUser && questions
+		? Object.keys(questions)
+			.filter((question) => !voted.includes(question))
+			.sort((a, b) => questions[b].timestamp - questions[a].timestamp)
+		: [];
+
+	const myVotes =
+		authedUser && questions
+			? Object.keys(questions)
+				.filter((question) => questions[question].author === authedUser)
+				.sort((a, b) => questions[b].timestamp - questions[a].timestamp)
+			: [];
+
+
+
 	return {
 		authedUser,
 		questions: {
 			'Unvoted': unvoted,
 			'Voted': voted,
 			'My Votes': myVotes,
-		}
-	}
+		},
+	};
 }
+
 
 export default connect(mapStateToProps)(Home)

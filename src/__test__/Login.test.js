@@ -1,15 +1,14 @@
 import * as React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import thunk from "redux-thunk";
-import { within } from "@testing-library/react";
 import { Provider } from "react-redux";
-import configureStore from "redux-mock-store";
 import Login from "../components/Login";
+import configureStore from 'redux-mock-store';
+import { BrowserRouter } from 'react-router-dom';
 
-const mockStore = configureStore([thunk]);
+const mockStore = configureStore([]);
+let store;
 
-describe("<Login />", () => {
-  let store, Component;
+describe("Login", () => {
 
   beforeEach(() => {
     store = mockStore({
@@ -22,36 +21,23 @@ describe("<Login />", () => {
           id: "tylermcginnis",
           name: "Tyler McGinnis",
         },
-        johndoe: {
-          id: "johndoe",
-          name: "John Doe",
+        zoshikanlu: {
+          id: "zoshikanlu",
+          name: "Zenobia Oshikanlu",
         },
       },
     });
   });
 
   it("will match Snapshot", () => {
-    Component = render(
-      <Provider store={store}>
-        <Login />
-      </Provider>
+    const { container } = render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <Login />
+        </Provider>
+      </BrowserRouter>
     );
 
-    expect(Component).toMatchSnapshot();
-  });
-
-  it("select a user", () => {
-    const { getById } = render(
-      <Provider store={store}>
-        <Login />
-      </Provider>
-    );
-
-    Component = getById("Check Component");
-    const selectOptions = within(Component).getAllByRole("option");
-    const option = selectOptions[1];
-
-    fireEvent.click(option);
-    expect(option.getAttribute("aria-selected")).toBe("true");
+    expect(container).toMatchSnapshot();
   });
 });

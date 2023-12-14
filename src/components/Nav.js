@@ -2,9 +2,9 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import { setAuthedUser } from '../services/actions/authedUser';
-import "bootstrap/js/src/collapse.js";
-import "bootstrap/dist/js/bootstrap.bundle";
-import "bootstrap/dist/css/bootstrap.css";
+// import 'bootstrap/js/src/collapse.js';
+// import 'bootstrap/dist/js/bootstrap.bundle';
+// import 'bootstrap/dist/css/bootstrap.css';
 class Nav extends Component {
 
     handleLogout = (e) => {
@@ -57,7 +57,8 @@ class Nav extends Component {
 
 function mapStateToProps({ users, authedUser }) {
     return {
-        user: users[authedUser]
+        // user: users[authedUser]
+        user: users && authedUser ? users[authedUser] : null,
     }
 }
 

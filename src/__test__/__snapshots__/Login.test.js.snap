@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login will match Snapshot 1`] = `
+<div>
+  <div
+    class="container login-container"
+  >
+    <div
+      class="d-flex justify-content-center h-100"
+    >
+      <div
+        class="card card-login"
+      >
+        <div
+          class="card-header text-white"
+        >
+          <h3>
+            <strong>
+              Sign In
+            </strong>
+          </h3>
+        </div>
+        <div
+          class="card-body"
+        >
+          <form>
+            <div
+              class="form-group"
+            >
+              <label
+                for="user"
+              >
+                Select a user
+              </label>
+              <select
+                class="custom-select"
+                name="user"
+              >
+                <option
+                  value="sarahedo"
+                >
+                  Sarah Edo
+                </option>
+                <option
+                  value="tylermcginnis"
+                >
+                  Tyler McGinnis
+                </option>
+                <option
+                  value="zoshikanlu"
+                >
+                  Zenobia Oshikanlu
+                </option>
+              </select>
+            </div>
+            <button
+              class="btn login_btn w-100"
+              disabled=""
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

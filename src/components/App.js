@@ -8,14 +8,16 @@ import Poll from './Poll'
 import Login from './Login'
 import Error from './Error'
 import Leaderboard from './Leaderboard'
-
 import Nav from './Nav'
 import './App.css';
 
 class App extends Component {
 
 	componentDidMount() {
-		this.props.dispatch(handleInitialData())
+		// this.props.dispatch(handleInitialData())
+		setTimeout(() => {
+			this.props.dispatch(handleInitialData());
+		  }, 0);
 	}
 
 	render() {
@@ -25,8 +27,8 @@ class App extends Component {
 			<Router>
 				<Fragment>
 					<Nav />
-					{authedUser === null
-						? <Route component={Login} />
+					{!authedUser
+						? <Route path='/' exact component={Login} />
 						: <Switch>
 							<Route path='/' exact component={Home} />
 							<Route path='/add' exact component={Add} />
@@ -41,7 +43,7 @@ class App extends Component {
 	}
 }
 
-function mapStateToProps ({ authedUser }) {
+function mapStateToProps({ authedUser }) {
 	return {
 		authedUser
 	}

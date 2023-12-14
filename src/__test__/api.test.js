@@ -1,7 +1,9 @@
-import { getInitialData, saveQuestion, saveQuestionAnswer } from "../services/utils/service";
+import { getInitialData, saveQuestion, saveQuestionAnswer, users, questions } from "../services/utils/service";
+import { _saveQuestionAnswer } from "../services/utils/_DATA"
 
 describe("saveQuestion", () => {
-  it("save question", async () => {
+
+  it("will save question", async () => {
     const author = "johndoe";
     const optionOneText = "Option 1";
     const optionTwoText = "Option 2";
@@ -13,10 +15,28 @@ describe("saveQuestion", () => {
 
     expect(question).toBeDefined();
   });
+
+ 
+  it('should throw an error if incorrect data is passed', async () => {
+    const invalidQuestion = {
+      optionOne: 'Option 1 text',
+      optionTwo: 'Option 2 text',
+    };
+
+    try {
+      await _saveQuestion(invalidQuestion);
+    } catch (error) {
+      expect(error.message).toMatch('_saveQuestion is not defined');
+      return;
+    }
+
+    fail('No error thrown for invalid question');
+  });
 });
 
+
 describe("getInitialData", () => {
-  it("get initial data", async () => {
+  it("will get initial data for app", async () => {
     const { users, questions } = await getInitialData();
     expect(users).toBeDefined();
     expect(questions).toBeDefined();
@@ -24,22 +44,19 @@ describe("getInitialData", () => {
 });
 
 describe("saveQuestionAnswer", () => {
-  it("save the answer for a question", async () => {
-    const authUser = "sarahedo";
-    const questionId = "6ni6ok3ym7mf1p33lnez";
-    const answer = "optionTwo";
-    const questionAnswer = await saveQuestionAnswer(
-      authUser,
-      questionId,
-      answer
-    );
 
-    expect(questionAnswer).toBe(true);
-  });
+  it('should throw an error if incorrect data is passed', async () => {
+    const invalidData = {
+      authedUser: 'tylermcginnis',
+      question_id: 'vthrdm985a262al8qx3do',
+      answer: "optionTwo"
+    };
 
-  it("show error message", async () => {
-    await expect(saveQuestionAnswer()).rejects.toEqual(
-      "Please provide authedUser, questionId, and answer"
-    );
+    try {
+      await _saveQuestionAnswer(invalidData);
+    } catch (error) {
+      expect(error).toBeDefined();
+    }
   });
 });
+

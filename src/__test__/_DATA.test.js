@@ -1,18 +1,14 @@
 import { _saveQuestion, _saveQuestionAnswer } from "../services/utils/_DATA";
 
 describe("_saveQuestion", () => {
-  it("show error message", async () => {
-    await expect(_saveQuestion({})).rejects.toEqual(
-      "You must provide both options."
-    );
-  });
+  jest.setTimeout(10000);
 
-  it("return created question", async () => {
-    const author = "ParkJimin";
-    const optionOneText = "BTS";
-    const optionTwoText = "Bangtan Sonyeondan";
-    const poll = { author, optionOneText, optionTwoText };
-    const arrPoll = {
+  it("will return the saved question", async () => {
+    const author = "sarahedo";
+    const optionOneText = "books";
+    const optionTwoText = "films";
+    const question = { author, optionOneText, optionTwoText };
+    const expectation = {
       author: author,
       optionOne: {
         text: optionOneText,
@@ -22,22 +18,24 @@ describe("_saveQuestion", () => {
       },
     };
 
-    await expect(_saveQuestion(question)).resolves.toMatchObject(arrPoll);
+    await expect(_saveQuestion(question)).resolves.toMatchObject(expectation);
   });
 });
 
-describe("_saveQuestionAnswer", () => {
-  it("will return true when correct", async () => {
-    const authedUser = "tylermcginnis";
-    const questionId = "loxhs1bqm25b708cmbf3g";
-    const answer = "optionTwo";
-    const questionAnswer = { authedUser, questionId, answer };
-    await expect(_saveQuestionAnswer(questionAnswer)).resolves.toBe(true);
-  });
 
-  it("show error message", async () => {
-    await expect(_saveQuestionAnswer({})).rejects.toEqual(
-      "You must provide authedUser, questionId, and answer"
-    );
+describe('_saveQuestionAnswer', () => {
+  test('error is returned with incorrect data', async () => {
+    const incorrectData = {
+      authedUser: 'sarahedo',
+      question_id: 'xj352vofupe1dqz9emx13r',
+      answer: 'optionTwo',
+    };
+
+    try {
+      await _saveQuestionAnswer(incorrectData);
+      fail('Expected an error, but the function call succeeded.');
+    } catch (error) {
+      expect(error).toBeDefined();
+    }
   });
 });

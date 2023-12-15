@@ -147,28 +147,24 @@ function formatQuestion({ optionOneText, optionTwoText, author }) {
     }
 }
 
-export function _saveQuestion(question) {
-    return new Promise((res, rej) => {
-        const authedUser = question.author;
-        const formattedQuestion = formatQuestion(question);
-        setTimeout(() => {
-            questions = {
-                ...questions,
-                [formattedQuestion.id]: formattedQuestion
-            }
-
-            users = {
-                ...users,
-                [authedUser]: {
-                    ...users[authedUser],
-                    questions: users[authedUser].questions.concat([formattedQuestion.id])
-                }
-            }
-
-            res(formattedQuestion)
-        }, 1000)
+export function _saveQuestion (question) {
+    return new Promise((resolve, reject) => {
+      if (!question.optionOneText || !question.optionTwoText || !question.author) {
+        reject("Please provide optionOneText, optionTwoText, and author");
+      }
+  
+      const formattedQuestion = formatQuestion(question)
+      console.log('formattedQuestion', formattedQuestion)
+      setTimeout(() => {
+        questions = {
+          ...questions,
+          [formattedQuestion.id]: formattedQuestion
+        }
+  
+        resolve(formattedQuestion)
+      }, 1000)
     })
-}
+  }
 
 export function _saveQuestionAnswer({ authedUser, question_id, answer }) {
     return new Promise((res, rej) => {

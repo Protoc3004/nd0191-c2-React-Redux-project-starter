@@ -1,41 +1,46 @@
-import * as React from "react";
+import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import configureStore from "redux-mock-store";
 import Login from "../components/Login";
-import configureStore from 'redux-mock-store';
-import { BrowserRouter } from 'react-router-dom';
 
 const mockStore = configureStore([]);
-let store;
+
+const renderWithRedux = (
+  ui,
+  { initialState, store = mockStore(initialState) } = {}
+) => {
+  return {
+    ...render(<Provider store={store}>{ui}</Provider>),
+    store,
+  };
+};
 
 describe("Login", () => {
-
-  beforeEach(() => {
-    store = mockStore({
-      users: {
-        sarahedo: {
-          id: "sarahedo",
-          name: "Sarah Edo",
-        },
-        tylermcginnis: {
-          id: "tylermcginnis",
-          name: "Tyler McGinnis",
-        },
-        zoshikanlu: {
-          id: "zoshikanlu",
-          name: "Zenobia Oshikanlu",
-        },
-      },
-    });
-  });
-
   it("will match Snapshot", () => {
-    const { container } = render(
+    const { container } = renderWithRedux(
       <BrowserRouter>
-        <Provider store={store}>
-          <Login />
-        </Provider>
-      </BrowserRouter>
+        <Login />
+      </BrowserRouter>,
+      {
+        initialState: {
+          users: {
+            sarahedo: {
+              id: "sarahedo",
+              name: "Sarah Edo",
+            },
+            tylermcginnis: {
+              id: "tylermcginnis",
+              name: "Tyler McGinnis",
+            },
+            zoshikanlu: {
+              id: "zoshikanlu",
+              name: "Zenobia Oshikanlu",
+            },
+          },
+        },
+      }
     );
 
     expect(container).toMatchSnapshot();
